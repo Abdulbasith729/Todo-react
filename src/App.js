@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import InputContainer from './components/InputContainer';
+import ItemContainer from './components/ItemContainer';
+import { useState } from 'react';
+import Count from './components/Count';
 
 function App() {
-  return (
+const [todos , setTodos] = useState([]);
+
+const addNewTodos = (newTodos)=>{
+
+  setTodos([...todos,newTodos]);
+}
+
+const deleteTodos = (itemToBeDeleted) =>{
+const filtersTodos =todos.filter( (item) => item !== itemToBeDeleted); 
+setTodos(filtersTodos);
+};
+
+
+ return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>ToDo Project</h1>
+      <Count itemsCount ={todos.length}/>
+      <InputContainer   addNewTodos={addNewTodos} />
+     <ItemContainer todos={todos} deleteTodos={deleteTodos} />
     </div>
   );
 }
